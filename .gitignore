@@ -1,3 +1,4 @@
 cookbooks/*
 *.tfstate
 *.tfstate.backup
+chef-repo/*
