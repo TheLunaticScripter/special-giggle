@@ -1,10 +1,26 @@
 provider "aws" {
-  access_key = "AKIAIE5N7GQ2CGP3ETFA"
-  secret_key = "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"
-  region     = "us-east-1"
+  access_key = "${var.access_key}"
+  secret_key = "${var.secret_key}"
+  region     = "${var.region}"
+}
+
+data "aws_ami" "ubuntu" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["099720109477"] # Canonical
 }
 
 resource "aws_instance" "example" {
-  ami           = "ami-0d729a60"
+  ami           = "${data.aws_ami.ubuntu.id}"
   instance_type = "t2.micro"
 }
