@@ -59,3 +59,13 @@ resource "aws_instance" "runner2" {
     X-Contact = "jsnow"
   }
 }
+
+resource "aws_instance" "artifactory" {
+  ami           = "${data.aws_ami.ubuntu16.id}"
+  instance_type = "t2.small"
+  key_name = "${var.key_name}"
+  tags {
+    Name = "jsnow-artifactory"
+    X-Contact = "jsnow"
+  }
+}
